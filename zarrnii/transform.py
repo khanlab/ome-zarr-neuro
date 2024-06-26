@@ -148,12 +148,12 @@ class Transform:
         for transform in transforms:
         # (for now, we just assume the transformations will be called scale and translation)
             if transform['type'] == "scale":
-                scaling_zyx = transform["scale"][1:]
+                scaling_zyx = transform["scale"][-3:]
                 scaling_xfm = np.diag(np.hstack((scaling_zyx,1)))
                 affine = scaling_xfm @ affine
             elif transform['type'] == "translation":
                 translation_xfm = np.eye(4)
-                translation_xfm[:3,3] = transform["translation"][1:]
+                translation_xfm[:3,3] = transform["translation"][-3:]
                 affine = translation_xfm @ affine
             
         # reorder_xfm -- changes from z,y,x to x,y,z ordering
